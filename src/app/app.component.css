@@ -13,3 +13,13 @@
     flex-direction: column;
     gap:1.5rem;
 }
+
+.visivel{
+    background-color: red;
+    color: white;
+    display: flex;
+}
+
+.escondido{
+    display: none;
+}

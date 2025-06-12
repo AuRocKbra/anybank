@@ -10,12 +10,12 @@ import { TipoTransacao, Transacao } from '../modelos/transacao';
 })
 export class FormNovaTransacaoComponent {
   tipoTransacao:string = "";
-  valorTransacao:number = 0.00;
+  valorTransacao!:number;
   transacaoRealizada = output<Transacao>();
 
   limparCampos(){
     this.tipoTransacao = "";
-    this.valorTransacao = 0.00;
+    this.valorTransacao = Number();
   }
 
   realizarTransacao(){
