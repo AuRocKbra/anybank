@@ -3,18 +3,18 @@ import { BannerComponent } from "./componentes/banner/banner.component";
 import { FormNovaTransacaoComponent } from './componentes/form-nova-transacao/form-nova-transacao.component';
 import { TipoTransacao, Transacao } from './componentes/modelos/transacao';
 import { CommonModule } from '@angular/common';
+import { ExtratoComponent } from './componentes/extrato/extrato.component';
 
 
 @Component({
   selector: 'app-root',
-  imports: [BannerComponent,FormNovaTransacaoComponent,CommonModule],
+  imports: [BannerComponent,FormNovaTransacaoComponent,CommonModule,ExtratoComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   transacoes = signal<Transacao[]>([]);
   exibirmensagem:string='escondido';
-  mensagemErro!:string;
 
   saldo = computed(()=>{
     return this.transacoes().reduce((acumulador,transacaoAtual) =>{
@@ -23,14 +23,7 @@ export class AppComponent {
           return acumulador + transacaoAtual.valor;
         
         case TipoTransacao.SAQUE:
-          if(transacaoAtual.valor > acumulador){
-            this.mensagemErro = 'Não é permitido realizar um saque maior que seu saldo';
-            this.exibirmensagem = 'visivel';
-            setTimeout(()=>{
-              this.exibirmensagem = 'escondido';
-            },5000);
-            return acumulador;
-          }
+          console.log(`valor =>${transacaoAtual.valor}; acc => ${acumulador}`);
           return acumulador - transacaoAtual.valor;
 
         default:
@@ -40,7 +33,9 @@ export class AppComponent {
   });
 
   processarTransacao(transacao: Transacao){
+    if(transacao.tipo == TipoTransacao.SAQUE && transacao.valor > this.saldo()){
+        return alert("Saldo insuficiente");
+    }
     this.transacoes.update((listaAtual)=>[transacao, ...listaAtual]);
-    console.log(this.transacoes());
   }
 }

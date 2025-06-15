@@ -23,3 +23,9 @@
 .escondido{
     display: none;
 }
+
+@media screen and (max-width: 48rem){
+    .extrato{
+        flex-basis: 100%;
+    }
+}

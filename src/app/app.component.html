@@ -2,8 +2,6 @@
   <div class="banner-form-wrapper">
     <app-banner [saldo]="saldo()"></app-banner>
     <app-form-nova-transacao (transacaoRealizada)="processarTransacao($event)"></app-form-nova-transacao>
-    <div [ngClass]="exibirmensagem">
-      {{mensagemErro}}
-    </div>
   </div>
+  <app-extrato class="extrato"/>
 </div>
