@@ -3,5 +3,5 @@
     <app-banner [saldo]="saldo()"></app-banner>
     <app-form-nova-transacao (transacaoRealizada)="processarTransacao($event)"></app-form-nova-transacao>
   </div>
-  <app-extrato class="extrato"/>
+  <app-extrato [transacoes]="transacoes()" class="extrato"/>
 </div>
